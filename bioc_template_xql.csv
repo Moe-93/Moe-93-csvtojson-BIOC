@@ -1,0 +1,3 @@
+name,description,severity,status,is_xql,xql_query,comment,mitre_technique_id,mitre_tactic_id,category
+Suspicious PowerShell Execution,Detects suspicious PowerShell encoded command execution,high,enabled,true,"dataset = xdr_data | filter action_process_image_name contains ""powershell.exe"" | filter action_process_image_command_line contains ""-enc"" | limit 100",PowerShell encoded command detection,T1059.001 - PowerShell,TA0002,EXECUTION
+Admin File Execution,Administrator account executing files,medium,enabled,true,"dataset = xdr_data | filter action_process_username =~ ""Administrator"" | limit 100",Administrator file execution,T1078.001 - Valid Accounts: Default Accounts,TA0004,PRIVILEGE_ESCALATION

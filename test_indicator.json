@@ -1,0 +1,172 @@
+[
+  {
+    "name": "Malicious Domain Connection",
+    "comment": "Known malware domain communication",
+    "description": "Detect connections to known malicious domains",
+    "severity": "SEV_050_CRITICAL",
+    "status": "ENABLED",
+    "is_xql": false,
+    "category": "COMMAND_AND_CONTROL",
+    "indicator": {
+      "runOnCGO": true,
+      "investigationType": "NETWORK_EVENT",
+      "investigation": {
+        "NETWORK_EVENT": {
+          "filter": {
+            "AND": [
+              {
+                "SEARCH_FIELD": "action_remote_ip_domain",
+                "SEARCH_TYPE": "CONTAINS",
+                "SEARCH_VALUE": "malware.com",
+                "EXTRA_FIELDS": [],
+                "isExtended": false,
+                "node": "attributes"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "indicator_text": "action_remote_ip_domain contains malware.com",
+    "mitre_technique_id_and_name": "T1071 - Application Layer Protocol",
+    "mitre_technique_id": "T1071",
+    "mitre_tactic_id_and_name": "TA0011 - Command and Control",
+    "mitre_tactic_id": "TA0011"
+  },
+  {
+    "name": "Suspicious Process Execution",
+    "comment": "Execution from public directory",
+    "description": "Detect execution from suspicious directories",
+    "severity": "SEV_040_HIGH",
+    "status": "ENABLED",
+    "is_xql": false,
+    "category": "EXECUTION",
+    "indicator": {
+      "runOnCGO": true,
+      "investigationType": "PROCESS_EXECUTION_EVENT",
+      "investigation": {
+        "PROCESS_EXECUTION_EVENT": {
+          "filter": {
+            "AND": [
+              {
+                "SEARCH_FIELD": "action_process_image_path",
+                "SEARCH_TYPE": "CONTAINS",
+                "SEARCH_VALUE": "C:\\Users\\Public\\",
+                "EXTRA_FIELDS": [],
+                "isExtended": false,
+                "node": "attributes"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "indicator_text": "action_process_image_path contains C:\\Users\\Public\\",
+    "mitre_technique_id_and_name": "T1059 - Command and Scripting Interpreter",
+    "mitre_technique_id": "T1059",
+    "mitre_tactic_id_and_name": "TA0002 - Execution",
+    "mitre_tactic_id": "TA0002"
+  },
+  {
+    "name": "Registry Persistence",
+    "comment": "Registry run key persistence",
+    "description": "Monitor registry modifications for persistence",
+    "severity": "SEV_030_MEDIUM",
+    "status": "ENABLED",
+    "is_xql": false,
+    "category": "PERSISTENCE",
+    "indicator": {
+      "runOnCGO": true,
+      "investigationType": "REGISTRY_EVENT",
+      "investigation": {
+        "REGISTRY_EVENT": {
+          "filter": {
+            "AND": [
+              {
+                "SEARCH_FIELD": "registry_key_name",
+                "SEARCH_TYPE": "CONTAINS",
+                "SEARCH_VALUE": "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run",
+                "EXTRA_FIELDS": [],
+                "isExtended": false,
+                "node": "attributes"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "indicator_text": "registry_key_name contains SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run",
+    "mitre_technique_id_and_name": "T1547 - Boot or Logon Autostart Execution",
+    "mitre_technique_id": "T1547",
+    "mitre_tactic_id_and_name": "TA0003 - Persistence",
+    "mitre_tactic_id": "TA0003"
+  },
+  {
+    "name": "Suspicious Download",
+    "comment": "File download detection",
+    "description": "Detect files downloaded from external sources",
+    "severity": "SEV_020_LOW",
+    "status": "ENABLED",
+    "is_xql": false,
+    "category": "COMMAND_AND_CONTROL",
+    "indicator": {
+      "runOnCGO": true,
+      "investigationType": "FILE_EVENT",
+      "investigation": {
+        "FILE_EVENT": {
+          "filter": {
+            "AND": [
+              {
+                "SEARCH_FIELD": "action_file_path",
+                "SEARCH_TYPE": "CONTAINS",
+                "SEARCH_VALUE": "C:\\Users\\*\\Downloads\\",
+                "EXTRA_FIELDS": [],
+                "isExtended": false,
+                "node": "attributes"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "indicator_text": "action_file_path contains C:\\Users\\*\\Downloads\\",
+    "mitre_technique_id_and_name": "T1105 - Ingress Tool Transfer",
+    "mitre_technique_id": "T1105",
+    "mitre_tactic_id_and_name": "TA0011 - Command and Control",
+    "mitre_tactic_id": "TA0011"
+  },
+  {
+    "name": "Network Beacon Detection",
+    "comment": "Dynamic DNS beacon detection",
+    "description": "Detect periodic network beaconing behavior",
+    "severity": "SEV_040_HIGH",
+    "status": "ENABLED",
+    "is_xql": false,
+    "category": "COMMAND_AND_CONTROL",
+    "indicator": {
+      "runOnCGO": true,
+      "investigationType": "NETWORK_EVENT",
+      "investigation": {
+        "NETWORK_EVENT": {
+          "filter": {
+            "AND": [
+              {
+                "SEARCH_FIELD": "action_remote_ip_domain",
+                "SEARCH_TYPE": "REGEX",
+                "SEARCH_VALUE": ".*\\.dyn.*\\..*",
+                "EXTRA_FIELDS": [],
+                "isExtended": false,
+                "node": "attributes"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "indicator_text": "action_remote_ip_domain regex .*\\.dyn.*\\..*",
+    "mitre_technique_id_and_name": "T1071.004 - Application Layer Protocol: DNS",
+    "mitre_technique_id": "T1071.004",
+    "mitre_tactic_id_and_name": "TA0011 - Command and Control",
+    "mitre_tactic_id": "TA0011"
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Suspicious PowerShell Execution",
+    "comment": "Encoded PowerShell execution detection",
+    "description": "Detect suspicious PowerShell encoded commands",
+    "severity": "SEV_040_HIGH",
+    "status": "ENABLED",
+    "is_xql": true,
+    "category": "EXECUTION",
+    "xql": "dataset = xdr_data | filter action_process_image_name contains \"powershell.exe\" | filter action_process_image_command_line contains \"-enc\" | limit 100",
+    "indicator_text": "dataset = xdr_data | filter action_process_image_name contains \"powershell.exe\" | filter action_process_image_command_line contains \"-enc\" | limit 100",
+    "indicator": {
+      "runOnCGO": true,
+      "investigationType": "PROCESS_EXECUTION_EVENT",
+      "investigation": {}
+    },
+    "mitre_technique_id_and_name": "T1059.001 - PowerShell",
+    "mitre_technique_id": "T1059.001",
+    "mitre_tactic_id_and_name": "TA0002 - Execution",
+    "mitre_tactic_id": "TA0002"
+  },
+  {
+    "name": "Administrator File Execution",
+    "comment": "Admin file execution detection",
+    "description": "Detect administrator account executing files",
+    "severity": "SEV_030_MEDIUM",
+    "status": "ENABLED",
+    "is_xql": true,
+    "category": "PRIVILEGE_ESCALATION",
+    "xql": "dataset = xdr_data | filter action_process_username =~ \"Administrator\" | filter event_type = PROCESS_START | limit 100",
+    "indicator_text": "dataset = xdr_data | filter action_process_username =~ \"Administrator\" | filter event_type = PROCESS_START | limit 100",
+    "indicator": {
+      "runOnCGO": true,
+      "investigationType": "PROCESS_EXECUTION_EVENT",
+      "investigation": {}
+    },
+    "mitre_technique_id_and_name": "T1078.001 - Valid Accounts Default Accounts",
+    "mitre_technique_id": "T1078.001",
+    "mitre_tactic_id_and_name": "TA0004 - Privilege Escalation",
+    "mitre_tactic_id": "TA0004"
+  },
+  {
+    "name": "Fileless Attack Detection",
+    "comment": "Fileless PowerShell execution",
+    "description": "Detect fileless script loading activity",
+    "severity": "SEV_040_HIGH",
+    "status": "ENABLED",
+    "is_xql": true,
+    "category": "EXECUTION",
+    "xql": "dataset = xdr_data | filter event_type = MODULE_LOAD | filter action_file_name contains \"powershell.exe\" | filter action_process_image_command_line contains \"-nop -w hidden\" | limit 100",
+    "indicator_text": "dataset = xdr_data | filter event_type = MODULE_LOAD | filter action_file_name contains \"powershell.exe\" | filter action_process_image_command_line contains \"-nop -w hidden\" | limit 100",
+    "indicator": {
+      "runOnCGO": true,
+      "investigationType": "PROCESS_EXECUTION_EVENT",
+      "investigation": {}
+    },
+    "mitre_technique_id_and_name": "T1059.001 - PowerShell",
+    "mitre_technique_id": "T1059.001",
+    "mitre_tactic_id_and_name": "TA0002 - Execution",
+    "mitre_tactic_id": "TA0002"
+  }
+]
