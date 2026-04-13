@@ -6,7 +6,7 @@
 - **`csv_to_bioc.py`** - Production-ready CSV to BIOC converter
 
 ### Documentation
-- **`README_CSV_TO_BIOC.md`** - Comprehensive reference guide
+- **`README`** - Comprehensive reference guide
 - **`QUICK_START.md`** - Quick start guide with examples
 
 ### Sample Files
